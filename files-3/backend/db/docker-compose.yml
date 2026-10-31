@@ -1,0 +1,30 @@
+# Starts PostgreSQL 16 and builds the database automatically on first run.
+#   docker compose up -d
+# Connection string for FastAPI / SQLAlchemy:
+#   postgresql+psycopg2://sms_user:sms_password@localhost:5432/subscription_db
+services:
+  db:
+    image: postgres:16
+    container_name: sms_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sms_user
+      POSTGRES_PASSWORD: sms_password
+      POSTGRES_DB: subscription_db
+      TZ: Asia/Kolkata
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Files in this folder run in alphabetical order, only when the volume is empty
+      - ./01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./02_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+      - ./03_subscription_stage_view.sql:/docker-entrypoint-initdb.d/03_subscription_stage_view.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sms_user -d subscription_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
