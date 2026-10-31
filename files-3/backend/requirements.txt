@@ -1,6 +1,0 @@
-SQLAlchemy>=2.0
-psycopg2-binary>=2.9
-reportlab>=4.0
-pytest>=8.0
-pypdf>=4.0          # only used by tests/test_pdf.py to read the PDF text back
-# Team stack (not used by Developer 3 code yet): fastapi, uvicorn, celery, passlib[bcrypt]
