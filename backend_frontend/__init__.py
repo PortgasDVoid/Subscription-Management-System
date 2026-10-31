@@ -1,1 +1,0 @@
-"""Brightloop Subscription Management System."""

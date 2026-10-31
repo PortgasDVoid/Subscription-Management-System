@@ -1,5 +1,0 @@
-POSTGRES_USER=sms_user
-POSTGRES_PASSWORD=change-this-local-password
-POSTGRES_DB=subscription_db
-DATABASE_URL=postgresql+psycopg2://sms_user:change-this-local-password@db:5432/subscription_db
-CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
